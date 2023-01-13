@@ -1,4 +1,4 @@
-﻿namespace InternetShop.Models
+﻿namespace Delivery.Models
 {
     public class User
     {

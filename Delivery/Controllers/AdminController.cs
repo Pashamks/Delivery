@@ -1,8 +1,8 @@
-﻿using InternetShop.DataBase;
-using InternetShop.DataBase.Models;
+﻿using Delivery.DataBase;
+using Delivery.DataBase.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace InternetShop.Controllers
+namespace Delivery.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
