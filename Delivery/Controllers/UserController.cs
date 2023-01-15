@@ -9,6 +9,7 @@ namespace Delivery.Controllers
     public class UserController : Controller
     {
         private DbRepository dbRepository;
+        private static string UserName = string.Empty;
         public UserController()
         {
             dbRepository = new DbRepository();
@@ -25,8 +26,13 @@ namespace Delivery.Controllers
         {
             return View();
         }
+        public IActionResult Buy()
+        {          
+            return View();
+        }
         public IActionResult Validate(LogginModel user)
         {
+            UserName = user.Name;
             var status = dbRepository.GetUserStatus(user);
             if(status == 0)
                 return RedirectToAction("Register", "User"); 
@@ -50,12 +56,17 @@ namespace Delivery.Controllers
             return RedirectToAction("Login", "User"); ;
         }
        
-        [Route("logout")]
-        [HttpPost]
-        public IActionResult Logout(string userName)
+        public IActionResult UserProducts()
         {
-            return Ok();
+            return View(dbRepository.GetUserProducts(UserName).Result);
         }
+        public IActionResult BuyProduct(BuyModel model)
+        {
+            model.UserName = UserName;
+            dbRepository.BuyProduct(model).Wait();
+            return RedirectToAction("UserProducts", "User");
+        }
+
         [Route("balance")]
         [HttpPut]
         public IActionResult EditBalance([FromBody]User user)

@@ -2,11 +2,11 @@
 
 <section class="content-header">
     <h1>
-    Продукти юзера
+    Сторінка юзера
     </h1>
     <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i>Домашня</a></li>
-    <li class="active">Доступні продукти</li>
+    <li class="active">Продукти користувача</li>
     </ol>
 </section>
 <!-- Main content -->
@@ -14,15 +14,7 @@
     <div class="row">
     <div class="col-xs-12">
         <div class="box">
-        <div class="box-header">
-            <h3 class="box-title">Дії з продукт</h3>
-            <button>
-                <a href="User/Buy">Купити продукт</a>
-                <h1>----</h1>
-                <a href="User/UserProducts">Відслідкувати мої продукти</a>
 
-            </button>
-        </div>
         <!-- /.box-header -->
         <form method="post" action="Ticket/Delete">
              <div class="box-body">
@@ -62,16 +54,3 @@
 <!-- DataTables -->
 <script src="~/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="~/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-
-<!-- page script -->
-<script>
-    var ticketId = 0;
-    $(function () {
-        $('#example1').DataTable();
-    });
- 
-    function Delete(id){
-        var txt;
-        
-    }
-</script>

@@ -19,7 +19,7 @@ namespace Delivery.Controllers
         {
             return Ok(await dbRepository.GetProducts());
         }
-        [Route("buy")]
+        [Route("buyproduct")]
         [HttpPost]
         public IActionResult BuyProduct(BuyModel buyModel)
         {
@@ -30,7 +30,7 @@ namespace Delivery.Controllers
             dbRepository.BuyProduct(buyModel).Wait();
             return Ok();
         }
-        [Route("user")]
+        [Route("userProducts")]
         [HttpGet]
         public async Task<IActionResult> GetUserProducts([FromQuery]string name)
         {

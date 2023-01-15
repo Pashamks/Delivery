@@ -150,7 +150,8 @@ namespace Delivery.DataBase
                     Id = y.Id,
                     Name = y.Name,
                     Amount = x.Amount,
-                    Price = y.Price
+                    Price = y.Price,
+                    ProductStatus = y.ProductStatus
                 }).ToList();
             }
         }

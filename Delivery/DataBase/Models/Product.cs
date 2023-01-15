@@ -6,5 +6,12 @@
         public string Name { get; set; }
         public double Price { get; set; }
         public int Amount { get; set; }
+        public ProductStatus ProductStatus { get; set; }
+    }
+    public enum ProductStatus
+    {
+        New,
+        InProcess,
+        Closed       
     }
 }
