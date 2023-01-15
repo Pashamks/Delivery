@@ -28,6 +28,23 @@ namespace Delivery.DataBase
             }
         }
 
+        public int GetUserStatus(LogginModel user)
+        {
+            using(var ctx = GetContext())
+            {
+                var account = ctx.Accounts.FirstOrDefault(x => x.Name == user.Name
+                && x.Password == user.Password);
+                if (account == null)
+                    return 0;
+                else if (account.Name.Contains("admin"))
+                    return 1;
+                else if (!string.IsNullOrEmpty(account.PhoneNumber))
+                    return 2;
+                else
+                    return 3;
+            }
+        }
+
         public void UpdateProduct(Product product)
         {
             using (var ctx = GetContext())

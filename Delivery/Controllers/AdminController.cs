@@ -4,11 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Delivery.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class AdminController : Controller
     {
         private DbRepository dbRepostiroy;
+        public IActionResult Index()
+        {
+            return View();
+        }
         public AdminController()
         {
             dbRepostiroy = new DbRepository();

@@ -17,7 +17,8 @@ namespace Delivery
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RestApi", Version = "v1" });
             });
-            services.AddMvc();
+            services.AddEndpointsApiExplorer();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddControllers();
         }
 
@@ -32,12 +33,15 @@ namespace Delivery
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RestApi v1"));
 
-            app.UseRouting();
+            app.UseStaticFiles();
 
-            app.UseEndpoints(endpoints =>
+            app.UseMvc(routes =>
             {
-                endpoints.MapControllers();
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
+
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Delivery.DataBase
     public class EfCoreDbContext: DbContext
     {
         private readonly string _connectionString =
-        "Server=DESKTOP-SM098C1;Database=DeliveryShop;Trusted_Connection=True;";
+        "Server=DESKTOP-SM098C1;Database=DeliveryShop;Trusted_Connection=True;TrustServerCertificate=True;";
 
         public EfCoreDbContext()
         {

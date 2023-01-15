@@ -4,50 +4,52 @@ using Delivery.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace InternetShop.Controllers
+namespace Delivery.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : Controller
     {
         private DbRepository dbRepository;
         public UserController()
         {
             dbRepository = new DbRepository();
         }
-        [Route("register")]
-        [HttpPost]
-        public async Task<IActionResult> CreateAccount(User user)
+        public IActionResult Index()
         {
-            await dbRepository.AddUser(new UserModel
+            return View(dbRepository.GetProducts().Result);
+        }
+        public IActionResult Login()
+        {
+            return View();
+        }
+        public IActionResult Register()
+        {
+            return View();
+        }
+        public IActionResult Validate(LogginModel user)
+        {
+            var status = dbRepository.GetUserStatus(user);
+            if(status == 0)
+                return RedirectToAction("Register", "User"); 
+            else if(status == 1)
+                return RedirectToAction("Index", "Admin");
+            else if (status==2)
+                return RedirectToAction("Index", "Courier");
+            else
+                return RedirectToAction("Index", "User");
+        }
+
+        public IActionResult CreateAccount(LogginModel user)
+        {
+            dbRepository.AddUser(new UserModel
             {
                 Name = user.Name,
-                Balance = user.Balance
-            });
-            return Ok();
+                Balance = 100,
+                Password = user.Password,
+                PhoneNumber = user.PhoneNumber
+            }).Wait();
+            return RedirectToAction("Login", "User"); ;
         }
-        [Route("login")]
-        [HttpPost]
-        public IActionResult Login([FromBody]string userName)
-        {
-            LoggedUser user = new LoggedUser()
-            {
-                Index = 0
-            };
-            if (dbRepository.IsUserExist(userName))
-            {
-                user.Balance = dbRepository.GetBalance(userName);
-                if (userName.Contains("admin"))
-                {
-                    user.Index = 2;
-                    return Ok(user);
-                }
-                user.Index = 1;
-                return Ok(user);
-            }
-
-            return Ok(user);
-        }
+       
         [Route("logout")]
         [HttpPost]
         public IActionResult Logout(string userName)

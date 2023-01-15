@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace Delivery.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class ProductController : Controller
     {
         private DbRepository dbRepository;
