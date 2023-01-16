@@ -12,15 +12,37 @@ namespace Delivery.Controllers
         {
             return View();
         }
+        public IActionResult Add()
+        {
+            return View();
+        }
+        public IActionResult Delete()
+        {
+            return View();
+        }
+        public IActionResult Users()
+        {
+            return View(dbRepostiroy.GetUsers().Result);
+        }
+        public IActionResult Products()
+        {
+            return View(dbRepostiroy.GetProducts().Result);
+        }
         public AdminController()
         {
             dbRepostiroy = new DbRepository();
         }
-        [HttpDelete]
-        public IActionResult DeleteProduct([FromBody]string product)
+        [HttpPost]
+        public IActionResult ProductDelete(int Id)
         {
-            dbRepostiroy.RemoveProduct(product).Wait();
-            return Ok(product);
+            dbRepostiroy.RemoveProduct(dbRepostiroy.GetProductById(Id)).Wait();
+            return RedirectToAction("Products", "Admin");
+        }
+        [HttpPost]
+        public IActionResult ProductAdd(Product product)
+        {
+            dbRepostiroy.AddProduct(product).Wait();
+            return RedirectToAction("Products", "Admin");
         }
         [HttpPut]
         public IActionResult EditProduct(Product product)

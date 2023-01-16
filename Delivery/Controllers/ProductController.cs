@@ -36,11 +36,6 @@ namespace Delivery.Controllers
         {
             return Ok(await dbRepository.GetUserProducts(name));
         }
-        [HttpDelete]
-        public async Task<IActionResult> DeleteProduct([FromBody] string product)
-        {
-            dbRepository.RemoveProduct(product).Wait();
-            return Ok();
-        }
+    
     }
 }

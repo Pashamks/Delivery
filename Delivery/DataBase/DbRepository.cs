@@ -37,6 +37,14 @@ namespace Delivery.DataBase
             }
         }
 
+        public Product GetProductById(int id)
+        {
+            using(var ctx = GetContext())
+            {
+                return ctx.Products.First(x => x.Id == id);
+            }
+        }
+
         public void ClosePurchase(int id)
         {
             using (var ctx = GetContext())
@@ -51,6 +59,13 @@ namespace Delivery.DataBase
             using(var ctx = GetContext())
             {
                 return ctx.Basket.ToList();
+            }
+        }
+        public async Task<List<UserModel>> GetUsers()
+        {
+            using(var ctx = GetContext())
+            {
+                return ctx.Accounts.ToList();
             }
         }
 
@@ -109,17 +124,12 @@ namespace Delivery.DataBase
                 await ctx.SaveChangesAsync();
             }
         }
-        public async Task RemoveProduct(string product)
+        public async Task RemoveProduct(Product product)
         {
             using( var ctx = GetContext())
             {
-                var prod = ctx.Products.First(x => x.Name == product);
-                ctx.Products.Remove(prod);
-                ctx.Basket.Add(new ProductBasket
-                {
-                    Name = prod.Name,
-                    Price = prod.Price
-                });
+                ctx.Products.Remove(product);
+
                 await ctx.SaveChangesAsync();
             }
         }
