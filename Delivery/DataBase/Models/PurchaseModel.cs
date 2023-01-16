@@ -9,5 +9,13 @@ namespace Delivery.DataBase.Models
         public int Amount { get; set; }
         public int UserId { get; set; }
         public DateTime Date { get; set; }
+        public PurchaseStatus ProductStatus { get; set; }
+
+    }
+    public enum PurchaseStatus
+    {
+        New,
+        InProcess,
+        Closed
     }
 }

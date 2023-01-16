@@ -1,12 +1,77 @@
-﻿<section class="content-header">
+﻿@model IEnumerable<Delivery.DataBase.Models.PurchaseModel>
+
+<section class="content-header">
     <h1>
-        Кур'єр
-        <small>Привіт Кур'єр</small>
+    Кур'єр
     </h1>
+    <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i>Домашня</a></li>
+    <li class="active">Сторінка кур'єра</li>
+    </ol>
 </section>
 <!-- Main content -->
-<section class="content container-fluid">
-    <!--------------------------
-    | Your Page Content Here |
-    -------------------------->
+<section class="content">
+    <div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Дії із замовленнями</h3>
+            <button>
+                <a href="Courier/Take">Взяти замовлення</a>
+                <h1>----</h1>
+                <a href="Courier/Close">Закрити замовлення</a>
+
+            </button>
+        </div>
+        <!-- /.box-header -->
+        <form method="post" action="Ticket/Delete">
+             <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>ProductId</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>ProductStatus</th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ProductId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Amount)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ProductStatus)</td>
+                    </tr>
+                }
+            </table>
+        </div>
+        </form>
+        <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    </div>
+    <!-- /.row -->
 </section>
+   
+<!-- DataTables -->
+<script src="~/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+<!-- page script -->
+<script>
+    var ticketId = 0;
+    $(function () {
+        $('#example1').DataTable();
+    });
+ 
+    function Delete(id){
+        var txt;
+        
+    }
+</script>

@@ -20,6 +20,32 @@ namespace Delivery.DataBase
                 return ctx.Products.ToList();
             }
         }
+        public async Task<List<PurchaseModel>> GetPurchases()
+        {
+            using(var ctx = GetContext())
+            {
+                return ctx.Purchases.ToList();
+            }
+        }
+
+        public void TakePurchase(int id)
+        {
+            using (var ctx = GetContext())
+            {
+                ctx.Purchases.First(x => x.Id == id).ProductStatus = PurchaseStatus.InProcess;
+                ctx.SaveChanges();
+            }
+        }
+
+        public void ClosePurchase(int id)
+        {
+            using (var ctx = GetContext())
+            {
+                ctx.Purchases.First(x => x.Id == id).ProductStatus = PurchaseStatus.Closed;
+                ctx.SaveChanges();
+            }
+        }
+
         public async Task<List<ProductBasket>> GetBasket()
         {
             using(var ctx = GetContext())
@@ -132,7 +158,8 @@ namespace Delivery.DataBase
                     UserId = account.Id,
                     ProductId = product.Id,
                     Date = System.DateTime.Now,
-                    Amount = buyModel.Amount                                  
+                    Amount = buyModel.Amount,
+                    ProductStatus = PurchaseStatus.New
                 });
                 product.Amount -= buyModel.Amount;
                 account.Balance = account.Balance - product.Price*product.Amount;
@@ -151,7 +178,6 @@ namespace Delivery.DataBase
                     Name = y.Name,
                     Amount = x.Amount,
                     Price = y.Price,
-                    ProductStatus = y.ProductStatus
                 }).ToList();
             }
         }

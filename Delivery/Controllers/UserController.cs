@@ -9,7 +9,7 @@ namespace Delivery.Controllers
     public class UserController : Controller
     {
         private DbRepository dbRepository;
-        private static string UserName = string.Empty;
+        public static string UserName = string.Empty;
         public UserController()
         {
             dbRepository = new DbRepository();
